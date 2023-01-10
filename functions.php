@@ -116,12 +116,14 @@ function catalog_auth() {
   // 管理者は対象外とする
   if ( !current_user_can( 'administrator' ) ) {
       // catalogページのみ実行
-      if ( is_page( 'catalog' ) ) {
+      if ( is_singular( 'catalog' ) ) { // カタログ・技術資料の投稿タイプで判定
+        // アクセスしたページのURLを取得
+        $this_url = preg_replace('!http(s)?://' . $_SERVER['SERVER_NAME'] . '/!', '/', get_permalink());
           if(isset($_COOKIE['noisekenInfo_completed'])) {
               // Cookieを保持→閲覧可能
           } else {
               // Cookieを未保持
-              if (date_default_timezone_get() != 'Asia/Tokyo') { // タイムゾーンが東京で無い場合は東京に設定
+              if (date_default_timezone_get() != 'Asia/Tokyo') { // タイムゾーンが東京ではない場合は東京に設定
                   date_default_timezone_set('Asia/Tokyo');
               }
               if (isset($_GET['viewable'])) {
@@ -144,12 +146,12 @@ function catalog_auth() {
                       <?php
                   } else {
                       // パラメータとUnixが一致しない
-                      header('Location: /form/');
+                      header('Location: /form/?url='.$this_url);
                       exit;
                   }
               } else {
                   // パラメータviewableを未保持
-                  header('Location: /form/');
+                  header('Location: /form/?url='.$this_url);
                   exit;
               }
           }
