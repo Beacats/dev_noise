@@ -1,0 +1,35 @@
+@font-face {
+  font-family: "Noto Sans JP";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../font/NotoSansJP-Bold.woff2") format("woff2"), url("../font/NotoSansJP-Bold.woff") format("woff");
+}
+@font-face {
+  font-family: "Noto Sans JP";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../font/NotoSansJP-Medium.woff2") format("woff2"), url("../font/NotoSansJP-Medium.woff") format("woff");
+}
+@font-face {
+  font-family: "Noto Sans JP";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../font/NotoSansJP-Regular.woff2") format("woff2"), url("../font/NotoSansJP-Regular.woff") format("woff");
+}
+@font-face {
+  font-family: "montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../font/Montserrat-Regular.ttf") format("ttf"), url("../font/Montserrat-Regular.woff2") format("woff2"), url("../font/Montserrat-Regular.woff") format("woff");
+}
+body {
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+.ff_noto-sans {
+  font-family: "Noto Sans JP", sans-serif;
+}/*# sourceMappingURL=font.css.map */

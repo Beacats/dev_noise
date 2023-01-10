@@ -1,0 +1,613 @@
+@charset "UTF-8";
+* {
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+.transition {
+  transition-duration: 0.6s;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.imgBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text_wrap, textWrap, tw {
+  display: inline-block;
+}
+
+.product-child .container, .product-child section:not(.product-child_mv) {
+  width: 94%;
+  margin: 0 auto;
+  max-width: 1600px;
+}
+.product-child section:not(.product-child_mv) {
+  margin-top: clamp(24px, 5.4vw, 64px);
+}
+.product-child section:not(.product-child_mv) h3 {
+  font-size: min(2vw, 28px);
+  text-align: center;
+  margin-bottom: 1em;
+  font-weight: 700;
+  line-height: 1.8;
+  letter-spacing: 0.1em;
+}
+
+.product-child_mv {
+  padding: max(2.4vw, 40px) 0 1.3vw;
+  background-color: #D9D9D9;
+}
+.product-child_mv .container {
+  display: grid;
+  grid-template-columns: 62% 1fr;
+  grid-template-rows: repeat(2, auto);
+  -moz-column-gap: 3vw;
+       column-gap: 3vw;
+}
+.product-child_mv .title_content {
+  font-size: min(3.2vw, 38px);
+}
+.product-child_mv .title_content p {
+  font-weight: 700;
+  font-size: 0.625em;
+}
+.product-child_mv .title_content h1 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0.3em 0;
+}
+.product-child_mv .description_content {
+  font-size: min(1.5vw, 22px);
+}
+.product-child_mv .description_content h2 {
+  font-weight: 500;
+  font-size: 1em;
+  line-height: 1.5;
+  margin-bottom: 0.5em;
+}
+.product-child_mv .description_content p {
+  font-weight: 500;
+  font-size: 0.8em;
+  line-height: 1.7;
+}
+.product-child_mv .img_content {
+  grid-area: 1/2/3/3;
+  text-align: center;
+}
+.product-child_mv .img_content img {
+  width: auto;
+  max-width: 300px;
+}
+.product-child_mv.display_column .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.product-child_mv.display_column .title_content {
+  text-align: center;
+  margin-bottom: 1em;
+}
+.product-child_mv.display_column .description_content {
+  order: 3;
+  font-size: min(2.4vw, 32px);
+  margin-bottom: 2em;
+}
+.product-child_mv.display_column .description_content h3 {
+  text-align: center;
+  margin: 1.8em auto 1em;
+}
+.product-child_mv.display_column .description_content p {
+  font-size: 0.625em;
+}
+.product-child_mv.display_column .img_content {
+  text-align: center;
+  width: 90%;
+}
+.product-child_mv.display_column .img_content img {
+  max-width: initial;
+}
+
+.product-child_pageNav {
+  margin-top: 30px;
+}
+.product-child_pageNav .container {
+  text-align: center;
+}
+.product-child_pageNav ul {
+  font-size: min(1.4vw, 22px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #000;
+  border-radius: 2em;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  padding: 0 1em;
+}
+.product-child_pageNav ul li {
+  padding: 0.5em 0;
+  flex: auto;
+}
+.product-child_pageNav ul li a {
+  padding: 0.5em 1em 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-right: 1px solid #000;
+}
+.product-child_pageNav ul li a::after {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto;
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 0.5em solid transparent;
+  border-right: 0.5em solid transparent;
+  border-top: 0.5em solid black;
+}
+.product-child_pageNav ul li:last-child a {
+  border-right: none;
+}
+
+.characteristics {
+  width: 100% !important;
+  max-width: initial !important;
+}
+.characteristics .youtube_content_innerBox {
+  width: 94%;
+  max-width: 1600px;
+  margin: 0 auto;
+  background-color: #D9D9D9;
+  padding: max(3.2vw, 32px) 0;
+}
+.characteristics a {
+  width: 56.4%;
+  margin: 0 auto;
+  position: relative;
+}
+.characteristics a svg {
+  text-align: center;
+  position: absolute;
+  z-index: 1;
+  top: 40%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 15%;
+  margin: 0 auto;
+  min-width: 100px;
+  fill: red;
+}
+.characteristics a::after {
+  content: "";
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  top: 45%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  background-color: #fff;
+}
+.characteristics .characteristics_popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 999;
+  overflow-y: scroll;
+  background-color: rgba(0, 0, 0, 0.753);
+}
+
+.characteristics_content {
+  margin-top: 24px;
+}
+.characteristics_content .tile_wrapper {
+  max-width: 1700px;
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+}
+.characteristics_content .tile_wrapper li {
+  width: 30%;
+  background-color: #e9e9e9;
+  border-radius: 12px;
+  padding: 2%;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.characteristics_content .tile_wrapper li:hover {
+  transform: scale(1.05);
+}
+.characteristics_content .excerpt_content {
+  font-size: clamp(15px, 15vw, 24px);
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+.characteristics_content .excerpt_content h4 {
+  font-size: 1em;
+  line-height: 1.4;
+  margin-left: 0.8em;
+  margin-bottom: 0.8em;
+}
+.characteristics_content .excerpt_content h4::before {
+  content: "●";
+  margin-left: -1em;
+}
+.characteristics_content .excerpt_content img {
+  text-align: center;
+}
+.characteristics_content .excerpt_content p {
+  font-size: 0.8em;
+  font-weight: 400;
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+  line-height: 1.5;
+}
+.characteristics_content .excerpt_content.image_is_upper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.characteristics_content .excerpt_content.image_is_upper img {
+  order: 3;
+}
+.characteristics_content .detail_content {
+  display: none;
+}
+
+.one-column_detail {
+  margin-bottom: 20px;
+}
+
+.characteristics_popup, .detail_content, .one-column_detail {
+  font-size: clamp(20px, 2.4vw, 30px);
+}
+.characteristics_popup .popup_innreBox, .detail_content .popup_innreBox, .one-column_detail .popup_innreBox {
+  width: 85vw;
+  margin: 3vh auto;
+  background-color: #e9e9e9;
+  border-radius: 16px;
+  padding: 5%;
+  position: relative;
+}
+.characteristics_popup .popup_innreBox .closeBtn, .detail_content .popup_innreBox .closeBtn, .one-column_detail .popup_innreBox .closeBtn {
+  position: absolute;
+  top: 5vh;
+  right: 3%;
+  width: 50px;
+  z-index: 100;
+}
+.characteristics_popup .popup_innreBox .closeBtn svg, .detail_content .popup_innreBox .closeBtn svg, .one-column_detail .popup_innreBox .closeBtn svg {
+  cursor: pointer;
+  width: 50px;
+}
+.characteristics_popup h1, .characteristics_popup h2, .characteristics_popup h3, .characteristics_popup h4, .characteristics_popup h5, .characteristics_popup h6, .characteristics_popup strong, .detail_content h1, .detail_content h2, .detail_content h3, .detail_content h4, .detail_content h5, .detail_content h6, .detail_content strong, .one-column_detail h1, .one-column_detail h2, .one-column_detail h3, .one-column_detail h4, .one-column_detail h5, .one-column_detail h6, .one-column_detail strong {
+  font-weight: 700;
+}
+.characteristics_popup h1, .detail_content h1, .one-column_detail h1 {
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+}
+.characteristics_popup h2, .detail_content h2, .one-column_detail h2 {
+  margin-top: 0.83em;
+  margin-bottom: 0.83em;
+}
+.characteristics_popup h4, .detail_content h4, .one-column_detail h4 {
+  font-size: 1em;
+}
+.characteristics_popup h3, .characteristics_popup h4, .characteristics_popup h5, .characteristics_popup h6, .detail_content h3, .detail_content h4, .detail_content h5, .detail_content h6, .one-column_detail h3, .one-column_detail h4, .one-column_detail h5, .one-column_detail h6 {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+.characteristics_popup > div > div, .detail_content > div > div, .one-column_detail > div > div {
+  font-size: 0.8em;
+  line-height: 1.6;
+  letter-spacing: 0.1em;
+  padding: 1% 2%;
+}
+.characteristics_popup p, .characteristics_popup table, .detail_content p, .detail_content table, .one-column_detail p, .one-column_detail table {
+  margin: 1em 0;
+  font-size: 0.8em;
+  line-height: 1.6;
+  letter-spacing: 0.1em;
+}
+.characteristics_popup a, .detail_content a, .one-column_detail a {
+  text-decoration: underline;
+  color: blue;
+}
+.characteristics_popup img, .detail_content img, .one-column_detail img {
+  width: auto;
+  max-width: 100%;
+}
+.characteristics_popup ol, .detail_content ol, .one-column_detail ol {
+  list-style: auto;
+}
+.characteristics_popup ul, .detail_content ul, .one-column_detail ul {
+  list-style: disc;
+}
+.characteristics_popup ol, .characteristics_popup ul, .detail_content ol, .detail_content ul, .one-column_detail ol, .one-column_detail ul {
+  list-style-position: outside;
+  padding: 1em 0;
+  padding-left: 1.3em;
+}
+.characteristics_popup ol li, .characteristics_popup ul li, .detail_content ol li, .detail_content ul li, .one-column_detail ol li, .one-column_detail ul li {
+  line-height: 1.6;
+  letter-spacing: 0.1em;
+}
+.characteristics_popup li, .detail_content li, .one-column_detail li {
+  line-height: 1.5em;
+  margin-bottom: 0.5em;
+}
+.characteristics_popup tr td:first-child, .detail_content tr td:first-child, .one-column_detail tr td:first-child {
+  padding-right: 2%;
+}
+.characteristics_popup tr td:last-child, .detail_content tr td:last-child, .one-column_detail tr td:last-child {
+  padding-left: 2%;
+}
+.tablepress tfoot th,
+.tablepress thead th {
+  background-color: transparent;
+}
+
+.tablepress {
+  margin: 1em 0;
+}
+.tablepress caption {
+  display: none;
+}
+
+.tablepress td, .tablepress th {
+  background-color: transparent;
+  border: 1px solid !important;
+}
+
+.tablepress .odd td {
+  background-color: transparent;
+  border: 1px solid !important;
+}
+
+section.case-study .purpose_list {
+  display: grid;
+  grid-template-columns: repeat(3, 31.3333333333%);
+  gap: 3%;
+}
+section.case-study .purpose_list li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: 0.5s;
+}
+section.case-study .purpose_list li a:hover {
+  opacity: 0.6;
+}
+section.case-study .purpose_list li p {
+  font-weight: 500;
+  font-size: clamp(18px, 1.8vw, 24px);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+section.specifications .specifications_detail_content {
+  font-size: clamp(16px, 1.8vw, 24px);
+  font-weight: 400;
+}
+section.specifications .specifications_detail_content .tablepress thead th {
+  background-color: #545454;
+  color: #fff;
+  text-align: center;
+}
+section.specifications .specifications_detail_content td {
+  padding: 0.5%;
+}
+section.specifications .specifications_detail_content > p, section.specifications .specifications_detail_content > ul {
+  font-size: 0.8em;
+  font-weight: 400;
+}
+
+section#contact_section {
+  padding: 50px 0;
+  width: 100vw;
+  max-width: initial;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  background-color: #545454;
+}
+section#contact_section h3 {
+  color: #fff;
+}
+
+.product_options {
+  font-size: clamp(15px, 1.5vw, 22px);
+}
+.product_options .tabBody:not(.tabBody1) {
+  display: none;
+}
+.product_options .purpose_list {
+  padding: 3%;
+  display: grid;
+  grid-template-columns: repeat(4, 23%);
+  gap: 5% 2%;
+}
+.product_options .purpose_list li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-direction: column;
+  transition: 0.5s;
+}
+.product_options .purpose_list li a:hover {
+  opacity: 0.6;
+}
+.product_options .purpose_list li a p {
+  font-size: 0.8em;
+  line-height: 1.8;
+  text-align: left;
+  background-color: #545454;
+  color: #fff;
+  width: 100%;
+  padding: 0 0.4em;
+}
+
+/* --- タブ（ラジオボタン）のエリア ------------------------ */
+#tabArea {
+  line-height: 1; /* 1行の高さ          */
+  letter-spacing: 0; /* 文字間             */
+  text-align: center; /* 文字位置は中央     */
+}
+
+/* --- ラジオボタン ---------------------------------------- */
+#tabArea input[type=radio] {
+  display: none; /* ラジオボタン非表示 */
+}
+
+/* --- ラジオボタン直後のlabel ----------------------------- */
+#tabArea input[type=radio] + label {
+  display: inline-block;
+  position: relative;
+  padding: 6px 1em; /* labelの余白 */
+  font-size: 1em; /* タブの文字サイズ   */
+  font-weight: bold; /* タブは太文字       */
+  border: 3px solid #999; /* 未選択タブのの枠線 */
+  border-bottom: none; /* 下罫線は消す       */
+  border-radius: 5px 5px 0 0; /* タブの上左右角丸   */
+  margin: 0 1em; /* タブ間隔           */
+  background: #fff; /* 未選択タブの背景色 */
+  color: #666; /* 未選択タブの文字色 */
+}
+
+/* --- 選択されたラジオボタン直後のlabel ------------------- */
+#tabArea input[type=radio]:checked + label {
+  border-color: #666; /* 選択タブの枠線     */
+  color: #666; /* 選択タブの文字色   */
+  cursor: default; /* デフォルトカーソル */
+  z-index: 2; /* 重なりを最前面へ   */
+}
+
+/* --- 未選択ラジオボタン直後のlabelにマウスが乗った ------- */
+#tabArea input[type=radio]:not(:checked) + label:hover {
+  background: #b4cee2; /* カーソルタブの背景 */
+  cursor: pointer; /* リンクカーソル     */
+}
+
+/* --- タブ下の本体エリア ---------------------------------- */
+.tabBody {
+  position: relative;
+  border: 3px solid #666; /* 本体の枠線         */
+  background: #fff; /* 本体の背景色       */
+  margin-top: -3px; /* タブと罫線分重ねる */
+  z-index: 1;
+  /* 未選択タブより全面 */
+}
+
+section.this_product_catalog {
+  width: 100%;
+  max-width: initial;
+  background-color: #F2F2F2;
+  padding: 24px 0;
+}
+section.this_product_catalog .purpose_list {
+  width: 60%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 30%);
+  gap: 3%;
+}
+section.this_product_catalog .purpose_list li {
+  text-align: center;
+  font-size: clamp(15px, 15vw, 24px);
+  cursor: pointer;
+}
+section.this_product_catalog .purpose_list li a img {
+  width: 80%;
+  margin: 0 auto;
+}
+section.this_product_catalog .purpose_list li p {
+  line-height: 1.7;
+  font-weight: 500;
+}
+section.this_product_catalog .purpose_list li .more {
+  background-color: #545454;
+  border-radius: 24px;
+  line-height: 1.5;
+  color: #fff;
+  font-size: 0.9em;
+  font-weight: 400;
+}
+section.this_product_catalog .contentBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: max(5vw, 50px);
+}
+section.this_product_catalog .contentBox > div {
+  width: 50%;
+  margin: 0 5vw;
+  padding: 0.3em 1em;
+  background-color: #D9D9D9;
+}
+section.this_product_catalog .contentBox > div a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+section.this_product_catalog .contentBox > div a h3 {
+  margin-bottom: 0;
+  font-weight: 400;
+  font-size: clamp(17px, 1.7vw, 24px);
+}
+
+.related_products .purpose_list {
+  display: grid;
+  grid-template-columns: repeat(4, 23.5%);
+  gap: 5% 2%;
+  font-size: clamp(13px, 1.3vw, 20px);
+}
+.related_products .purpose_list h4 {
+  font-weight: 500;
+  font-size: 1.3em;
+  margin: 0.4em 0;
+}
+.related_products .purpose_list p {
+  line-height: 1.3;
+  font-weight: 400;
+}
+.related_products .purpose_list .more {
+  background-color: #545454;
+  border-radius: 24px;
+  margin-top: 1em;
+  padding: 0.2em 1em;
+  text-align: center;
+  color: #fff;
+}/*# sourceMappingURL=product_description.css.map */

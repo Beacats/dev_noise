@@ -1,0 +1,42 @@
+$c: (
+	k: #000,
+	w: #fff,
+	gray: #eee,
+);
+@function c($key) {
+	@return map-get($c, $key);
+}
+
+$w: (
+	l: normal,
+	n: bold,
+	// b: 900,
+);
+@function w($key) {
+	@return map-get($w, $key);
+}
+
+$space: (
+	pc-rl: 6.25vw,
+	sp-rl: 4.8vw,
+	sp-rl2: 8vw,
+);
+@function space($key) {
+	@return map-get($space, $key);
+}
+
+$breakpoints: (
+  'sp': 'screen and (max-width: 599px)',
+  'tab': 'screen and (max-width: 768px)',
+  'tab-u': 'screen and (min-width: 600px)',
+  'tab-t': 'screen and (max-width: 1024px)',
+  'pc': 'screen and (min-width: 1025px)',
+) !default;
+@mixin mq($breakpoint: sp) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
+$main_color:#1bb8ce;
+
