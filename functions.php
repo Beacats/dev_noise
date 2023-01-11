@@ -121,13 +121,16 @@ function catalog_auth() {
         $this_url = preg_replace('!http(s)?://' . $_SERVER['SERVER_NAME'] . '/!', '/', get_permalink());
           if(isset($_COOKIE['noisekenInfo_completed'])) {
               // Cookieを保持→閲覧可能
+              if(isset($_COOKIE['c_page_url'])) { // カタログ・技術ページのURLを保持するCookie削除
+                setcookie('c_page_url', '', time() - 3600, '/');
+              }
           } else {
               // Cookieを未保持
               if (date_default_timezone_get() != 'Asia/Tokyo') { // タイムゾーンが東京ではない場合は東京に設定
                   date_default_timezone_set('Asia/Tokyo');
               }
               if (isset($_GET['viewable'])) {
-                  // パラメータviewableを保持
+                  // パラメータviewableを保持（Cookieが無効）
                   $viewable = $_GET['viewable'];
                   $unix = mktime(0,0,0,date('m'),date('d'),date('Y')) * 1000; // Unixタイム取得とJSのgetTimeと桁数を合わせる
                   if ($viewable == $unix) {
@@ -146,19 +149,20 @@ function catalog_auth() {
                       <?php
                   } else {
                       // パラメータとUnixが一致しない
-                      header('Location: /form/?url='.$this_url);
+                      header('Location: /form/?c_page_url='.$this_url); // パラメータでカタログ・技術ページのURLを送信
                       exit;
                   }
               } else {
-                  // パラメータviewableを未保持
-                  header('Location: /form/?url='.$this_url);
+                  // パラメータviewableを未保持（Cookieが有効）
+                  setcookie('c_page_url', $this_url, 0, '/'); // Cookieでカタログ・技術ページのURLを送信、有効期限はセッション
+                  header('Location: /form/');
                   exit;
               }
           }
       }
   }
 }
-// add_action('wp', 'catalog_auth');
+add_action('wp', 'catalog_auth');
 
 get_template_part('functions/taxonomy_sort');
 
