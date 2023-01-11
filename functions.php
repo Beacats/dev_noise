@@ -158,5 +158,7 @@ function catalog_auth() {
       }
   }
 }
-add_action('wp', 'catalog_auth');
+// add_action('wp', 'catalog_auth');
+
+get_template_part('functions/taxonomy_sort');
 

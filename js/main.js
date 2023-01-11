@@ -9,13 +9,36 @@ jQuery(function ($) {
         let $section_title;
         $section_title = $(this).find('>h3').text();
         if($section_title === ''){
-        $section_title = $(this).find('a >h3').text();
+            // $section_title = $(this).find('a >h3').text();
+            $section_title = $(this).find('.section_title:eq(0)').text();
         }
+        console.log( $section_title);
 
-        
-
-        $('.product-child_pageNav ul').append(`<li><a href="#${$section_id}">${$section_title}</a></li>`)
+        if ($(this).is(':visible')) {
+            // 表示されている場合の処理
+            $('.product-child_pageNav ul').append(`<li><a href="#${$section_id}">${$section_title}</a></li>`);
+        }
     });
+
+
+   if($('#this_product_catalog').length){
+    let $list_num = 1;
+    $('.this_product_catalog_innerBox').each(function(){
+        $(this).addClass(`list_num${$list_num}`);
+        $list_num++;
+    });
+
+    $('.this_product_catalog .contentBox >div').click(function(){
+        let $open_id = $(this).attr('id');
+        $('.this_product_catalog .contentBox >div').show();
+        $(this).hide();
+        $('.this_product_catalog_innerBox').hide();
+        $(`.this_product_catalog_innerBox.${$open_id}`).show();
+    });
+
+
+
+   }
 
 
    $(".characteristics_content .tile_wrapper img").imagesLoaded(function(){

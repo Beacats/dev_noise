@@ -26,13 +26,13 @@
     ?>
 
 
-    
-    
-    
+
+
+
   <section class="product-child_mv <?php echo $add_className; ?>">
     <div class="container column">
       <div class="title_content ">
-  <?php
+        <?php
     $this_category; // 製品カテゴリー名
     $this_category_slug;// 製品カテゴリースラッグ
     $exclude_id = get_the_ID(); //この投稿のID
@@ -43,32 +43,30 @@
     if (is_singular('emc')) {
        //静電気試験機
         $this_category_group = 'emc_category';//カテゴリータクソノミースラッグ
-      }else if(is_singular('rfsys')){
-      $this_category_group = 'rfsys_category';//カテゴリータクソノミースラッグ
-      
-    }else if(is_singular('emc-test-serv')){
-      $this_category_group = 'emc-test-serv_category';//カテゴリータクソノミースラッグ
-
+    } elseif(is_singular('rfsys')) {
+        $this_category_group = 'rfsys_category';//カテゴリータクソノミースラッグ
+    } elseif(is_singular('emc-test-serv')) {
+        $this_category_group = 'emc-test-serv_category';//カテゴリータクソノミースラッグ
     }
-    
-    
-    
+
+
+
     $terms = get_the_terms($post->ID, $this_category_group);
     foreach ($terms as $term) {
         $this_category = $term->name;
         $term_p = $term->parent;
     }
     $this_category_slug = $term->slug;
-    
-    
+
+
     if($product_type === 'option') {
-      $term_p_ob = get_term($term_p, $this_category_group);
-      $this_category = $term_p_ob-> name;
-      $this_category_slug = $term_p_ob-> slug;
-      $option_category = get_field('option_category');
+        $term_p_ob = get_term($term_p, $this_category_group);
+        $this_category = $term_p_ob-> name;
+        $this_category_slug = $term_p_ob-> slug;
+        $option_category = get_field('option_category');
     }
     $this_category_option_slug = $this_category_slug.'-option';
-    
+
     ?>
 
         <p><?php echo $this_category ?>
@@ -106,10 +104,13 @@
       </div><!-- /.description_content -->
 
       <div class="img_content">
-        <?php $product_image = get_field('product_image'); if ($product_image) :  ?>
+        <?php $product_image = get_field('product_image');
+        if ($product_image) :  ?>
 
         <figure>
-          <img src="<?php echo $product_image['url']; ?>" alt="<?php echo $product_image['alt']; ?>">
+          <img
+            src="<?php echo $product_image['url']; ?>"
+            alt="<?php echo $product_image['alt']; ?>">
         </figure>
 
         <?php endif; ?>
@@ -176,11 +177,11 @@
 
             <?php
               if ($tile_item['product_tile_image']):
-              $imgurl = wp_get_attachment_image_src($tile_item['product_tile_image'], 'full');  ?>
+                  $imgurl = wp_get_attachment_image_src($tile_item['product_tile_image'], 'full');  ?>
             <img src="<?php echo $imgurl[0]; ?>" alt="製品画像">
             <?php endif; ?>
             <?php
-                if ($tile_item['product_tile_summary']):?>
+                    if ($tile_item['product_tile_summary']):?>
             <p>
               <?php echo $tile_item['product_tile_summary'] ?>
             </p>
@@ -209,7 +210,7 @@
       <?php
           $oneColumn = SCF::get('product_one-column');
           foreach ($oneColumn as $fields):
-       ?>
+              ?>
       <div class="one-column_detail container">
         <?php echo apply_filters('the_content', $fields['product_one-column_detail']); ?>
       </div>
@@ -279,7 +280,7 @@
   <section class="contact_section" id="contact_section">
     <h3>お問合せ</h3>
   </section><!-- /.contact_section -->
-  
+
 
   <?php
 
@@ -288,7 +289,7 @@
     $term_slug = $this_category_slug; //親タームslug指定
     $termsparent = get_terms($tax_name, array('slug' => $term_slug)); //親ターム情報取得
     $termchildren = get_terms($tax_name, array('parent' => $termsparent[0]->term_id)); //子ターム情報取得
-    $option_categorys = SCF::get('select_option_cat'); 
+    $option_categorys = SCF::get('select_option_cat');
     foreach ($termchildren as $termchild):
         $termchild_slug = $termchild->slug;
     endforeach;
@@ -306,7 +307,7 @@
         ),
       ),
     );
-     $the_query = new WP_Query($args);
+    $the_query = new WP_Query($args);
     if ($the_query->have_posts() && $termchild_slug) :?>
   <section class="nav_item product_options" id="product_options">
 
@@ -326,41 +327,41 @@
     while ($the_query->have_posts()): $the_query->the_post();
         $this_terms = get_the_terms($post->ID, $this_category_group);
         $this_termsSlug = $this_terms[0]->slug;
-        
+
         if($this_termsSlug === $termchild_slug):
-          // 表示するオプションに限定があるが場合
-          if($option_categorys):
-            foreach($option_categorys as $option_category):
-              if(!in_array($option_category, $related_option_title)):
-                array_push($related_option_title, $option_category);
-            ?>
-            <input type="radio" name="tab"
-            id="tab<?php echo $optionNum ?>"
-            data-num="tabBody<?php echo $optionNum ?>">
-          <label
-            for="tab<?php echo $optionNum ?>"><?php echo $option_category ; ?></label>
+            // 表示するオプションに限定があるが場合
+            if($option_categorys):
+                foreach($option_categorys as $option_category):
+                    if(!in_array($option_category, $related_option_title)):
+                        array_push($related_option_title, $option_category);
+                        ?>
+        <input type="radio" name="tab"
+          id="tab<?php echo $optionNum ?>"
+          data-num="tabBody<?php echo $optionNum ?>">
+        <label
+          for="tab<?php echo $optionNum ?>"><?php echo $option_category ; ?></label>
 
 
-          <?php 
-            $optionNum++;
-              endif;
-            endforeach; 
+        <?php
+                        $optionNum++;
+                    endif;
+                endforeach;
             else:
-              // 表示するオプションに限定がない
-            $option_category = get_field('option_category'); 
-            if(!in_array($option_category, $related_option_title)):
-            array_push($related_option_title, $option_category);
+                // 表示するオプションに限定がない
+                $option_category = get_field('option_category');
+                if(!in_array($option_category, $related_option_title)):
+                    array_push($related_option_title, $option_category);
 
-            ?>
+                    ?>
 
-          <input type="radio" name="tab"
-            id="tab<?php echo $optionNum ?>"
-            data-num="tabBody<?php echo $optionNum ?>">
-          <label
-            for="tab<?php echo $optionNum ?>"><?php echo $option_category ; ?></label>
-            <?php endif; ?>
-            <?php $optionNum++; ?>
-                
+        <input type="radio" name="tab"
+          id="tab<?php echo $optionNum ?>"
+          data-num="tabBody<?php echo $optionNum ?>">
+        <label
+          for="tab<?php echo $optionNum ?>"><?php echo $option_category ; ?></label>
+        <?php endif; ?>
+        <?php $optionNum++; ?>
+
 
         <?php endif; ?>
         <?php endif; ?>
@@ -371,9 +372,8 @@
 
 
 
-    if($related_option_title){
-      $count = count($related_option_title);
-
+    if($related_option_title) {
+        $count = count($related_option_title);
     }
     // オプション品製品表示
     $args = array(
@@ -390,7 +390,7 @@
         ),
       ),
     );
-     $the_query = new WP_Query($args);
+    $the_query = new WP_Query($args);
     if ($the_query->have_posts()):
         for ($i = 1; $i <= $count; $i++):
             $arry_num = $i - 1;
@@ -399,19 +399,22 @@
 
         <div class="tabBody tabBody<?php echo $i?>">
           <ul class="purpose_list">
-            <?php while ($the_query->have_posts()): $the_query->the_post(); 
+            <?php while ($the_query->have_posts()): $the_query->the_post();
                 $option_category = get_field('option_category');
-                
+
                 $kono_post_id = get_the_ID();
                 if($related_cat === $option_category && $kono_post_id !== $exclude_id):
 
                     ?>
             <li>
               <a href="<?php the_permalink(); ?>">
-              <?php $product_image = get_field('product_image'); if ($product_image) :  ?>
+                <?php $product_image = get_field('product_image');
+                if ($product_image) :  ?>
 
                 <figure>
-                  <img src="<?php echo $product_image['url']; ?>" alt="<?php echo $product_image['alt']; ?>">
+                  <img
+                    src="<?php echo $product_image['url']; ?>"
+                    alt="<?php echo $product_image['alt']; ?>">
                 </figure>
 
                 <?php endif; ?>
@@ -440,76 +443,151 @@
     </div><!-- /.product_options_content -->
   </section><!-- /#product_options.product_options -->
 
-  <?php if (get_field('product_docs_a')) : ?>
+  <?php if (get_field('product_docs_a') ||get_field('software_link') || get_field('manual_link')) : ?>
   <section class="nav_item this_product_catalog" id="this_product_catalog">
-    <h3>カタログ・技術資料</h3>
-    <ul class="purpose_list">
-      <?php
-      $product_docs = get_field('product_docs_a');
+    <?php  if (get_field('product_docs_a')):?>
+    <div class='this_product_catalog_innerBox catalog_list '>
+      <h3 class='section_title'>カタログ・技術資料</h3>
+      <ul class="purpose_list">
+        <?php
+       
+        $product_docs = get_field('product_docs_a');
       foreach($product_docs as $product_doc) :
-
+        $relation_object = get_field('catalog_file' ,$product_doc);
           ?>
-      <li>
-        <a href="<?php echo get_permalink($product_doc); ?>"
-          target="_blank">
-          <?php
+        <li>
+          <a href="<?php echo get_permalink($product_doc); ?>"
+            target="_blank">
+            <?php
                 $thumbnail_src;
           if(get_field('pdf_thumbnail', $product_doc)) {
               $thumbnail_src = get_field('pdf_thumbnail', $product_doc);
           } else {
-              $thumbnail_src = get_field('catalog_file', $product_doc).'.jpg';
+            
+            $pdf_id = $relation_object['id'];
+            // $pdfurl = wp_get_attachment_url($pdf_id);
+           
+            $thumbnail_id = get_post_thumbnail_id( $pdf_id );
+            $thumbnail_src = wp_get_attachment_url( $thumbnail_id );
           }
           ?>
-          <img src="<?php echo $thumbnail_src;?>" alt="">
-          <p class="catalog_title">
-            <?php echo get_post($product_doc)->post_title;  ?></p>
-          <p class="more">資料を読む</p>
-        </a>
-      </li>
-      <?php endforeach; ?>
-    </ul>
-    <?php else: ?>
+            <img src="<?php echo $thumbnail_src;?>" alt="">
+            <p class="catalog_title">
+              <?php echo get_post($product_doc)->post_title;  ?>
+            </p>
+            <p class="more">資料を読む</p>
+          </a>
+        </li>
+        <?php endforeach; ?>
+      </ul>
+    </div>
+    
 
-    <!-- カタログ技術資料がない場合 -->
+    <?php 
+    endif;
+    if(get_field('software_link')): ?>
+    <div class='this_product_catalog_innerBox soft_file'>
+      <h3>ソフトウエア</h3>
+      <ul class="purpose_list software_list">
+        <?php
+        $software_link = get_field('software_link');
+        foreach($software_link as $software) :
+
+            ?>
+        <li>
+          <a href="<?php echo get_field('d3downloads_file', $software); ?>"
+            target="_blank">
+            <img src="<?php echo get_template_directory_uri(); ?>/img/zip.png" alt="">
+            <p class="catalog_title">
+              <?php echo get_post($software)->post_title;  ?>
+            </p>
+            <p>
+              <?php echo get_field('d3downloads_text', $software) ?>
+            </p>
+            <p class="more">ダウンロード</p>
+          </a>
+        </li>
+        <?php endforeach; ?>
+      </ul>
+    </div>
+
+    <?php endif;
+    if(get_field('manual_link')): ?>
+
+    <div class='this_product_catalog_innerBox user-manual'>
+      <h3>取扱説明書</h3>
+      <ul class="purpose_list manual_list">
+        <?php
+            $manual_link = get_field('manual_link');
+        foreach($manual_link as $manual) :
+          $relation_object = get_field('myalbum' ,$manual);
+            ?>
+        <li>
+          <a href="<?php echo $relation_object['url']; ?>"
+            target="_blank">
+            <?php
+                   $pdf_id = $relation_object['id'];
+                   $thumbnail_id = get_post_thumbnail_id( $pdf_id );
+                   $thumbnail_src = wp_get_attachment_url( $thumbnail_id );
+            ?>
+            <img src="<?php echo $thumbnail_src;?>" alt="">
+            <p class="catalog_title">
+              <?php echo get_post($manual)->post_title;  ?>
+            </p>
+            <p class="more">ダウンロード</p>
+          </a>
+        </li>
+        <?php endforeach; ?>
+      </ul>
+    </div>
+
+    <?php endif; ?>
     <?php
-    if(get_field('software_link') || get_field('manual_link')): ?>
-    <section class="this_product_catalog">
-      <?php endif;endif;
-    if(get_field('software_link') || get_field('manual_link')):
+
+    if(get_field('product_docs_a')||get_field('software_link') || get_field('manual_link')):
 
         ?>
 
-      <div class="contentBox container">
-        <?php
+    <div class="contentBox container">
+      
+      <?php
+    endif;
+    if (get_field('product_docs_a')):?>  
+
+    <div  id='catalog_list'>
+      <h3>カタログ・技術資料</h3>
+    </div>
+    <?php
     endif;
     $software_link = get_field('software_link');
     if($software_link):
         ?>
-        <div class="nav_item" id="soft_file">
-          <a href="#" target="_blank">
-            <h3>ソフトウエア</h3>
-          </a>
-        </div>
-        <?php endif; ?>
-        <?php
+      <div class="nav_item" id="soft_file">
+        <h3 class='section_title'>ソフトウエア</h3>
+      </div>
+
+
+      <?php endif; ?>
+      <?php
          $manual_link = get_field('manual_link');
     if($manual_link):
         ?>
-        <div class="nav_item" id="user-manual">
-          <a href="#" target="_blank">
-            <h3>取扱説明書</h3>
-          </a>
-        </div>
+      <div class="nav_item" id="user-manual">
+        <h3 class='section_title'>取扱説明書</h3>
+      </div>
         <?php endif; ?>
 
-        <?php if(get_field('software_link') || get_field('manual_link')) {
+        <?php if(get_field('product_docs_a') || get_field('software_link') || get_field('manual_link')) {
             echo"</div><!-- /.contentBox -->";
         } ?>
-        <?php if(get_field('product_docs_a') || get_field('software_link') || get_field('manual_link')) {
-            echo "</section><!-- /#this_product_catalog.this_product_catalog -->";
-        }?>
+  </section><!-- /#this_product_catalog.this_product_catalog -->
+  <?php endif; ?>
 
-        <?php
+
+
+
+
+  <?php
 
           $args = array(
             'post_type' => $this_post_type,
@@ -527,72 +605,77 @@
           );
     $the_query = new WP_Query($args);
     ?>
-        <?php if ($the_query->have_posts() || get_post_meta($post->ID, 'product_related', true)): ?>
+  <?php if ($the_query->have_posts() || get_post_meta($post->ID, 'product_related', true)): ?>
 
 
-        <section class="related_products">
-          <?php  if($product_type === 'option'): ?>
-          <h3><?php echo $this_category; ?></h3>
+  <section class="related_products">
+    <?php  if($product_type === 'option'): ?>
+    <h3><?php echo $this_category; ?></h3>
 
-          <?php else: ?>
-          <h3>関連製品</h3>
-          <?php endif ?>
-          <article>
-            <ul class="purpose_list">
-              <?php while ($the_query->have_posts()): $the_query->the_post();  ?>
-              <li>
-                <a href="<?php the_permalink(); ?>">
-                <?php $product_image = get_field('product_image'); if ($product_image) :  ?>
+    <?php else: ?>
+    <h3>関連製品</h3>
+    <?php endif ?>
+    <article>
+      <ul class="purpose_list">
+        <?php while ($the_query->have_posts()): $the_query->the_post();  ?>
+        <li>
+          <a href="<?php the_permalink(); ?>">
+            <?php $product_image = get_field('product_image');
+            if ($product_image) :  ?>
 
-                  <figure>
-                    <img src="<?php echo $product_image['url']; ?>" alt="<?php echo $product_image['alt']; ?>">
-                  </figure>
+            <figure>
+              <img
+                src="<?php echo $product_image['url']; ?>"
+                alt="<?php echo $product_image['alt']; ?>">
+            </figure>
 
-                  <?php endif; ?>
-                  <h4>
-                    <?php echo the_field('product_title_main'); ?>
-                  </h4>
+            <?php endif; ?>
+            <h4>
+              <?php echo the_field('product_title_main'); ?>
+            </h4>
 
-                  <p class="text">
-                    <?php echo SCF::get('product_summary_title'); ?>
-                  </p>
-                  <p class="more">詳しくはこちら</p>
-                </a>
-              </li>
-              <?php endwhile; ?>
-              <?php wp_reset_postdata();?>
+            <p class="text">
+              <?php echo SCF::get('product_summary_title'); ?>
+            </p>
+            <p class="more">詳しくはこちら</p>
+          </a>
+        </li>
+        <?php endwhile; ?>
+        <?php wp_reset_postdata();?>
 
-              <?php if(get_post_meta($post->ID, 'product_related', true)):
-                  $products_related = SCF::get('product_related');
-                  foreach ($products_related as  $product_related):
+        <?php if(get_post_meta($post->ID, 'product_related', true)):
+            $products_related = SCF::get('product_related');
+            foreach ($products_related as  $product_related):
 
-                      ?>
-              <li>
-                <a
-                  href="<?php echo get_permalink($product_related); ?>">
-                  <?php $product_image = get_field('product_image' ,$product_related); if ($product_image) :  ?>
+                ?>
+        <li>
+          <a href="<?php echo get_permalink($product_related); ?>">
+            <?php $product_image = get_field('product_image', $product_related);
+            if ($product_image) :  ?>
 
-                    <figure>
-                      <img src="<?php echo $product_image['url']; ?>" alt="<?php echo $product_image['alt']; ?>">
-                    </figure>
+            <figure>
+              <img
+                src="<?php echo $product_image['url']; ?>"
+                alt="<?php echo $product_image['alt']; ?>">
+            </figure>
 
-                    <?php endif; ?>
-                  <h4>
-                    <?php echo the_field('product_title_main', $product_related); ?>
-                  </h4>
+            <?php endif; ?>
+            <h4>
+              <?php echo the_field('product_title_main', $product_related); ?>
+            </h4>
 
-                  <p class="text">
-                    <?php echo the_field('product_summary_title', $product_related); ?>
-                  </p>
-                  <p class="more">詳しくはこちら</p>
-                </a>
-              </li>
-              <?php endforeach; ?>
-              <?php endif; ?>
-            </ul>
-          </article>
-        </section><!-- /.related_products -->
-        <?php endif;?>
+            <p class="text">
+              <?php echo the_field('product_summary_title', $product_related); ?>
+            </p>
+            <p class="more">詳しくはこちら</p>
+          </a>
+        </li>
+        <?php endforeach; ?>
+        <?php endif; ?>
+      </ul>
+    </article>
+  </section><!-- /.related_products -->
+  <?php endif;?>
 
 
 
@@ -602,7 +685,8 @@
 
 </body>
 <p id='youtubeId' style='display:none;'>
-  <?php echo SCF::get('product_movie'); ?></p>
+  <?php echo SCF::get('product_movie'); ?>
+</p>
 <script
   src="<?php echo get_template_directory_uri(); ?>/js/jquery-3.5.1.min.js">
 </script>

@@ -616,8 +616,8 @@ section.this_product_catalog{
   padding: 24px 0;
   .purpose_list{
     width: 60%;
-    margin: 0 auto;
     display: grid;
+    margin: 0 auto;
     grid-template-columns: repeat(3 , 30%);
     gap: 3%;
     li{
@@ -646,6 +646,12 @@ section.this_product_catalog{
       }
     }
   }
+  .this_product_catalog_innerBox{
+    display: none;
+    &.list_num1{
+      display: inline;
+    }
+  }
 
   .contentBox{
     display: flex;
@@ -655,17 +661,16 @@ section.this_product_catalog{
     >div{
       width: 50%;
       margin: 0 5vw;
-      padding:0.3em 1em;
-      background-color: #D9D9D9;
-      a{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        h3{
-          margin-bottom: 0;
-          font-weight: 400;
-          font-size: clamp(17px , 1.7vw ,24px);
-        }
+      &:first-child{
+        display: none;
+      }
+      h3{
+        background-color: #D9D9D9;
+        padding:0.3em 1em;
+        margin-bottom: 0;
+        font-weight: 400;
+        font-size: clamp(17px , 1.7vw ,24px);
+        cursor: pointer;
       }
     }
   }
