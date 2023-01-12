@@ -37,7 +37,6 @@ jQuery(function ($) {
     });
 
 
-
    }
 
 
@@ -79,11 +78,26 @@ jQuery(function ($) {
     $('.' + $open_body).show()
   });
 
+  $('.seminar_move li').click(function(){
+      let $open_url = $(this).find('.youtube_url').text();
+      console.log($open_url);
+        resizable = window.open($open_url, "ノイズ研究所",
+        "width=820,height=600,scrollbars=yes,status=no,toolbar=no,location=no,menubar=no,directories=no,resizable=yes");
+      resizable.focus();
+
+  });
+  function openWin_seminar(){
+    
+  }
+
+  openWin_seminar();
+
 
       
     $(window).on('load', function() {
         
     });
+
 });//jQuery
 
 $(window).resize(function () {

@@ -445,7 +445,7 @@ p ,table{
 
 
 
-section.case-study{
+section.case-study ,section.seminar_move{
   .purpose_list{
     display: grid;
     grid-template-columns: repeat(3,calc((100% - 6%) / 3));

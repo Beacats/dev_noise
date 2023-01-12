@@ -1,0 +1,31 @@
+body.post-type-emc.post-php , body.post-type-emc.post-new-php{
+  .search_select03{
+    
+    ul.acf-checkbox-list{
+      >li{
+        >label {
+          input{
+            display: none;
+          }
+          span{
+            font-weight: 500;
+
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.smart-cf-meta-box-repeat-tables{
+ .smart-cf-meta-box-table{
+  background-color: #fff;
+  border-top:1px solid #000 ;
+  border-bottom:1px solid #000 ;
+  &:nth-child(odd){
+    background-color: #eee;
+  }
+ }
+}
+//smart-cf-meta-box-repeat-tables

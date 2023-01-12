@@ -1,0 +1,15 @@
+body.post-type-emc.post-php .search_select03 ul.acf-checkbox-list > li > label input, body.post-type-emc.post-new-php .search_select03 ul.acf-checkbox-list > li > label input {
+  display: none;
+}
+body.post-type-emc.post-php .search_select03 ul.acf-checkbox-list > li > label span, body.post-type-emc.post-new-php .search_select03 ul.acf-checkbox-list > li > label span {
+  font-weight: 500;
+}
+
+.smart-cf-meta-box-repeat-tables .smart-cf-meta-box-table {
+  background-color: #fff;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+.smart-cf-meta-box-repeat-tables .smart-cf-meta-box-table:nth-child(odd) {
+  background-color: #eee;
+}/*# sourceMappingURL=my_admin_style.css.map */

@@ -677,6 +677,41 @@
   </section><!-- /.related_products -->
   <?php endif;?>
 
+  <?php 
+  $seminar_contents = SCF::get('seminar_contents');
+  if ($seminar_contents) : 
+  
+  ?>
+  <section class='seminar_move'>
+    <h3>セミナー動画</h3>
+    <div class="purpose_list_content">
+      <ul class="purpose_list">
+        <?php 
+        foreach ($seminar_contents as $seminar_content) :
+          $video_url = 'https://www.youtube.com/watch?v='.$seminar_content['seminar_youtube_id'];
+          $oembed_url = "https://www.youtube.com/oembed?url={$video_url}&format=json";
+          $ch = curl_init( $oembed_url );
+          curl_setopt_array( $ch, [CURLOPT_RETURNTRANSFER => 1] );
+          $resp = curl_exec( $ch );
+           
+          $metas = json_decode( $resp, true );
+        ?>
+        <li>
+          <a href="javascript:void(0);" >
+          <img
+            src="http://img.youtube.com/vi/<?php echo  $seminar_content['seminar_youtube_id']; ?>/maxresdefault.jpg"
+            alt="">
+            <p><?php echo $metas['title'];?></p>
+          </a>
+          <p class='youtube_url' style='display:none;'><?php echo $video_url; ?></p>
+        </li>
+        <?php endforeach;?>
+      </ul>
+    </div><!-- /.purpose_list_content -->
+  
+</section>
+<?php endif; ?>
+
 
 
 
@@ -684,9 +719,7 @@
 
 
 </body>
-<p id='youtubeId' style='display:none;'>
-  <?php echo SCF::get('product_movie'); ?>
-</p>
+<p id='youtubeId' style='display:none;'><?php echo SCF::get('product_movie'); ?></p>
 <script
   src="<?php echo get_template_directory_uri(); ?>/js/jquery-3.5.1.min.js">
 </script>
@@ -705,6 +738,9 @@
       "width=820,height=600,scrollbars=yes,status=no,toolbar=no,location=no,menubar=no,directories=no,resizable=yes");
     resizable.focus();
   }
+
+
+ 
 </script>
 <?php wp_footer(); ?>
 

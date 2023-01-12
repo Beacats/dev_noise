@@ -389,22 +389,22 @@ img {
   border: 1px solid !important;
 }
 
-section.case-study .purpose_list {
+section.case-study .purpose_list, section.seminar_move .purpose_list {
   display: grid;
   grid-template-columns: repeat(3, 31.3333333333%);
   gap: 3%;
 }
-section.case-study .purpose_list li a {
+section.case-study .purpose_list li a, section.seminar_move .purpose_list li a {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   transition: 0.5s;
 }
-section.case-study .purpose_list li a:hover {
+section.case-study .purpose_list li a:hover, section.seminar_move .purpose_list li a:hover {
   opacity: 0.6;
 }
-section.case-study .purpose_list li p {
+section.case-study .purpose_list li p, section.seminar_move .purpose_list li p {
   font-weight: 500;
   font-size: clamp(18px, 1.8vw, 24px);
   position: absolute;

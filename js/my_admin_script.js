@@ -65,6 +65,13 @@ $('input:radio').change(function(){
   product_box($val_text)
 });
 
+
+if($('.search_select03').length){
+  $('.search_select03 ul.acf-checkbox-list >li >label input').each(function(){
+    $(this).attr("disabled", "disabled");
+  });
+}
+
 }
 
 

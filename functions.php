@@ -1,11 +1,4 @@
 <?php
-function my_admin_script(){
-  
-  // jQuery のコードだった場合
-  wp_enqueue_script( 'my_admin_script', get_template_directory_uri().'/js/my_admin_script.js', array('jquery'));
-   
-}
-add_action( 'admin_enqueue_scripts', 'my_admin_script' );
 
 
 
@@ -161,4 +154,4 @@ function catalog_auth() {
 // add_action('wp', 'catalog_auth');
 
 get_template_part('functions/taxonomy_sort');
-
+get_template_part('functions/post_page_custom');
