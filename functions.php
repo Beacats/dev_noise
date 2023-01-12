@@ -108,7 +108,7 @@ add_action('wp_enqueue_scripts', 'theme_enqueue_styles');
 function catalog_auth() {
   // 管理者は対象外とする
   if ( !current_user_can( 'administrator' ) ) {
-      // catalogページのみ実行
+      // カスタム投稿catalogのみ実行
       if ( is_singular( 'catalog' ) ) { // カタログ・技術資料の投稿タイプで判定
         // アクセスしたページのURLを取得
         $this_url = preg_replace('!http(s)?://' . $_SERVER['SERVER_NAME'] . '/!', '/', get_permalink());
@@ -120,7 +120,7 @@ function catalog_auth() {
                   date_default_timezone_set('Asia/Tokyo');
               }
               if (isset($_GET['viewable'])) {
-                  // パラメータviewableを保持
+                  // パラメータviewableを保持（Cookie無効なのでパラメータで対応）
                   $viewable = $_GET['viewable'];
                   $unix = mktime(0,0,0,date('m'),date('d'),date('Y')) * 1000; // Unixタイム取得とJSのgetTimeと桁数を合わせる
                   if ($viewable == $unix) {
@@ -139,19 +139,19 @@ function catalog_auth() {
                       <?php
                   } else {
                       // パラメータとUnixが一致しない
-                      header('Location: /form/?url='.$this_url);
+                      header('Location: /form/?c_page_url='.$this_url);
                       exit;
                   }
               } else {
-                  // パラメータviewableを未保持
-                  header('Location: /form/?url='.$this_url);
+                  // パラメータviewableを未保持（Cookie有効、Cookie無効かつパラメータを持たない）
+                  header('Location: /form/?c_page_url='.$this_url);
                   exit;
               }
           }
       }
   }
 }
-// add_action('wp', 'catalog_auth');
+add_action('wp', 'catalog_auth');
 
 get_template_part('functions/taxonomy_sort');
 get_template_part('functions/post_page_custom');

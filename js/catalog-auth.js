@@ -2,7 +2,7 @@
     // パラメータよりカタログ・技術ページのURL取得
     const url = new URL(window.location.href); // URLを取得
     const params = url.searchParams; // URLSearchParamsオブジェクトを取得
-    const catalog = params.get('url'); // カタログ・技術ページのURL
+    const catalog = params.get('c_page_url'); // カタログ・技術ページのURL
     if (catalog) {
         // カタログ・技術ページのURLパラメータを持つ
         if (navigator.cookieEnabled) { // Cookie有効/無効判定
@@ -28,5 +28,9 @@
         }
     } else {
         // カタログ・技術ページのURLパラメータを持たない
+        // フォーム送信完了処理
+        document.addEventListener('wpcf7mailsent', function (event) {
+            location = '/'; // トップページへ遷移
+        }, false);
     }
 })(jQuery);
