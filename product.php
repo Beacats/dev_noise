@@ -679,8 +679,7 @@
 
   <?php 
   $seminar_contents = SCF::get('seminar_contents');
-  if ($seminar_contents) : 
-  
+  if (!empty($seminar_contents[0]['seminar_youtube_id'])) : 
   ?>
   <section class='seminar_move'>
     <h3>セミナー動画</h3>
