@@ -9,15 +9,11 @@ the_content();
 
 <ul>
 <?php
-// global $post;
-// $paged = get_query_var('page') ?: 1; //ページネーションを使いたいなら指定
 $args = array(
-    // 'paged' => $paged, //ページネーションを使いたいなら指定
-    // 'posts_per_page' => 3, //３記事のみ出力
-    'post_status' => 'publish', //公開の記事だけ
-    'post_type' => 'emc', //カスタム投稿slag
-    'orderby' => 'date', //日付を出力する基準
-    'order' => 'DESC' //表示する順番（逆はASC）
+    'post_status' => 'publish', // 公開記事が対象
+    'post_type' => 'emc', // カスタム投稿slag
+    'orderby' => 'date', // 日付を基準
+    'order' => 'DESC' // 降順で表示
 );
 $search_products = get_posts($args);
 if ($search_products) : foreach ($search_products as $post) : setup_postdata($post); // 繰り返し START
