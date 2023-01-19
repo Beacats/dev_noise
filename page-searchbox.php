@@ -15,8 +15,8 @@ $input_count = 1;
         <dt>検索用製品カテゴリ</dt>
         <dd>
             <?php foreach ($emc_tag_terms as $emc_tag_term) : ?>
-            <div class="type">
-                <input type="checkbox" id="check<?php echo $input_count; ?>" name="check<?php echo $input_count;?>" value="type_<?php echo $emc_tag_term->slug; ?>">
+            <div>
+                <input type="checkbox" id="check<?php echo $input_count; ?>" name="check<?php echo $input_count;?>" class="chk_search" value="<?php echo $emc_tag_term->slug; ?>">
                 <label for="check<?php echo $input_count; ?>"class="checkbox<?php echo $input_count; ?>"><?php echo $emc_tag_term->name; ?></label>
             </div>
             <?php $input_count++; ?>
@@ -33,8 +33,8 @@ $input_count = 1;
         <dt>検索用業界・産業</dt>
         <dd>
             <?php foreach ($emc_industry_terms as $emc_industry_term) : ?>
-            <div class="type">
-                <input type="checkbox" id="check<?php echo $input_count; ?>" name="check<?php echo $input_count;?>" value="type_<?php echo $emc_industry_term->slug; ?>">
+            <div>
+                <input type="checkbox" id="check<?php echo $input_count; ?>" name="check<?php echo $input_count;?>" class="chk_search" value="<?php echo $emc_industry_term->slug; ?>">
                 <label for="check<?php echo $input_count; ?>"class="checkbox<?php echo $input_count; ?>"><?php echo $emc_industry_term->name; ?></label>
             </div>
             <?php $input_count++; ?>
@@ -54,8 +54,8 @@ $input_count = 1;
                 <?php // 子タームのみ表示
                 if ($emc_test_standard_tag_term->parent) :
                 ?>
-                <div class="type">
-                    <input type="checkbox" id="check<?php echo $input_count; ?>" name="check<?php echo $input_count;?>" value="type_<?php echo $emc_test_standard_tag_term->slug; ?>">
+                <div>
+                    <input type="checkbox" id="check<?php echo $input_count; ?>" name="check<?php echo $input_count;?>" class="chk_search" value="<?php echo $emc_test_standard_tag_term->slug; ?>">
                     <label for="check<?php echo $input_count; ?>"class="checkbox<?php echo $input_count; ?>"><?php echo $emc_test_standard_tag_term->name; ?></label>
                 </div>
                 <?php $input_count++; ?>
@@ -69,6 +69,7 @@ $input_count = 1;
 
 <hr>
 
+<div class="result_box">
 <ul class="search_list">
 <?php
 $args = array(
@@ -112,12 +113,45 @@ if ($search_products) : foreach ($search_products as $post) : setup_postdata($po
     endif; ?>
 <?php // 繰り返し END
 endforeach; ?>
-</ul>
 <?php // 対象の投稿が無い場合
 else :
 ?>
     <li>記事がありません</li>
 <?php // if END
 endif; ?>
+</ul>
+</div>
+
+<style>
+    .hide {
+        display: none;
+    }
+</style>
+
+<script>
+(function ($) {
+    $('.chk_search').each(function () { // 初期表示：チェックボックスをオン
+        $(this).prop('checked', true);
+    })
+    $('.chk_search').on('click',function () { // チェックボックスをクリック
+        let arrs_type = [];
+        $('[class="chk_search"]:not(:checked)').each(function () { // チェックボックスにチェックが入っていないval（class）を配列に格納
+            arrs_type.push($(this).val());
+        });
+        $('.search_list li').each(function () { // class.hideを持つ要素よりclass.hideを削除
+            if ($(this).hasClass('hide')) {
+                $(this).removeClass('hide');
+            }
+        });
+        arrs_type.forEach(function (val) { // チェックボックスにチェックが入っていないclassを持つ要素にclass.hideを付与
+            $('.search_list li').each(function () {
+                if ($(this).hasClass(val) && !$(this).hasClass('hide')) {
+                    $(this).addClass('hide');
+                }
+            });
+        });
+    });
+})(jQuery);
+</script>
 
 <?php wp_footer(); ?>
