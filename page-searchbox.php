@@ -9,14 +9,13 @@ $input_count = 1;
 ?>
 
 <div class="search_box">
+
     <?php // 検索用製品カテゴリチェックボックス START
     $emc_tag_terms = get_terms('emc_tag'); // 検索用製品カテゴリを取得
     if ($emc_tag_terms) :
     ?>
     <dl>
-        <dt>
-            検索用製品カテゴリ
-        </dt>
+        <dt>検索用製品カテゴリ</dt>
         <dd>
             <?php foreach ($emc_tag_terms as $emc_tag_term) : ?>
             <div class="type">
@@ -29,6 +28,47 @@ $input_count = 1;
     </dl>
     <?php // 検索用製品カテゴリチェックボックス END
     endif; ?>
+
+    <?php // 検索用業界・産業チェックボックス START
+    $emc_industry_terms = get_terms('emc_industry'); // 検索用業界・産業を取得
+    if ($emc_industry_terms) :
+    ?>
+    <dl>
+        <dt>検索用業界・産業</dt>
+        <dd>
+            <?php foreach ($emc_industry_terms as $emc_industry_term) : ?>
+            <div class="type">
+                <input type="checkbox" id="check<?php echo $input_count; ?>" name="check<?php echo $input_count;?>" value="type_<?php echo $emc_industry_term->slug; ?>">
+                <label for="check<?php echo $input_count; ?>"class="checkbox<?php echo $input_count; ?>"><?php echo $emc_industry_term->name; ?></label>
+            </div>
+            <?php $input_count++; ?>
+            <?php endforeach; ?>
+        </dd>
+    </dl>
+    <?php // 検索用業界・産業チェックボックス END
+    endif; ?>
+
+    <?php // 検索用試験規格チェックボックス START
+    $emc_test_standard_tag_terms = get_terms('emc_test_standard_tag'); // 検索用試験規格を取得
+    if ($emc_test_standard_tag_terms) :
+    ?>
+    <dl>
+        <dt>検索用試験規格</dt>
+        <dd>
+            <?php foreach ($emc_test_standard_tag_terms as $emc_test_standard_tag_term) : ?>
+            <div class="type">
+                <input type="checkbox" id="check<?php echo $input_count; ?>" name="check<?php echo $input_count;?>" value="type_<?php echo $emc_test_standard_tag_term->slug; ?>">
+                <label for="check<?php echo $input_count; ?>"class="checkbox<?php echo $input_count; ?>"><?php echo $emc_test_standard_tag_term->name; ?></label>
+            </div>
+            <?php $input_count++; ?>
+            <?php endforeach; ?>
+        </dd>
+    </dl>
+    <?php // 検索用試験規格チェックボックス END
+    endif; ?>
+
+
+
 </div>
 
 
