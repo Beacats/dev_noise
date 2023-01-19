@@ -4,10 +4,38 @@ the_content();
 ?>
 
 
+<?php
+$input_count = 1;
+?>
+
+<div class="search_box">
+    <?php // 検索用製品カテゴリチェックボックス START
+    $emc_tag_terms = get_terms('emc_tag'); // 検索用製品カテゴリを取得
+    if ($emc_tag_terms) :
+    ?>
+    <dl>
+        <dt>
+            検索用製品カテゴリ
+        </dt>
+        <dd>
+            <?php foreach ($emc_tag_terms as $emc_tag_term) : ?>
+            <div class="type">
+                <input type="checkbox" id="check<?php echo $input_count; ?>" name="check<?php echo $input_count;?>" value="type_<?php echo $emc_tag_term->slug; ?>">
+                <label for="check<?php echo $input_count; ?>"class="checkbox<?php echo $input_count; ?>"><?php echo $emc_tag_term->name; ?></label>
+            </div>
+            <?php $input_count++; ?>
+            <?php endforeach; ?>
+        </dd>
+    </dl>
+    <?php // 検索用製品カテゴリチェックボックス END
+    endif; ?>
+</div>
 
 
 
-<ul>
+
+
+<ul class="search_list">
 <?php
 $args = array(
     'post_status' => 'publish', // 公開記事が対象
@@ -23,24 +51,24 @@ if ($search_products) : foreach ($search_products as $post) : setup_postdata($po
 <?php
 
     $class_array = array(); // class用の配列を定義
-    $emc_tag_raw = get_the_terms($post->ID, 'emc_tag'); // 検索用製品カテゴリを取得
-    $emc_industry_raw = get_the_terms($post->ID, 'emc_industry'); // 検索用業界・産業を取得
-    $emc_test_standard_tag_raw = get_the_terms($post->ID, 'emc_test_standard_tag'); // 検索用試験規格を取得
+    $emc_tags = get_the_terms($post->ID, 'emc_tag'); // 検索用製品カテゴリを取得
+    $emc_industry_tags = get_the_terms($post->ID, 'emc_industry'); // 検索用業界・産業を取得
+    $emc_test_standard_tags = get_the_terms($post->ID, 'emc_test_standard_tag'); // 検索用試験規格を取得
 
-    if ($emc_tag_raw) : // 検索用製品カテゴリが存在していれば$class_arrayに追加
-        foreach ($emc_tag_raw as $emc_tag) {
+    if ($emc_tags) : // 検索用製品カテゴリが存在していれば$class_arrayに追加
+        foreach ($emc_tags as $emc_tag) {
             $emc_tag_name = $emc_tag->slug . ' ';
             array_push($class_array, $emc_tag_name);
         }
     endif;
-    if ($emc_industry_raw) : // 検索用業界・産業が存在していれば$class_arrayに追加
-        foreach ($emc_industry_raw as $emc_industry) {
+    if ($emc_industry_tags) : // 検索用業界・産業が存在していれば$class_arrayに追加
+        foreach ($emc_industry_tags as $emc_industry) {
             $emc_industry_name = $emc_industry->slug . ' ';
             array_push($class_array, $emc_industry_name);
         }
     endif;
-    if ($emc_test_standard_tag_raw) : // 検索用試験規格が存在していれば$class_arrayに追加
-        foreach ($emc_test_standard_tag_raw as $emc_test_standard_tag) {
+    if ($emc_test_standard_tags) : // 検索用試験規格が存在していれば$class_arrayに追加
+        foreach ($emc_test_standard_tags as $emc_test_standard_tag) {
             $emc_test_standard_tag_name = $emc_test_standard_tag->slug . ' ';
             array_push($class_array, $emc_test_standard_tag_name);
         }
