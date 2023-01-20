@@ -106,7 +106,7 @@ if ($search_products) : foreach ($search_products as $post) : setup_postdata($po
     endif;
     if ($class_array) : // 検索用製品カテゴリ,検索用業界・産業,検索用試験規格のいずれかを持つか判定 START
     ?>
-    <li class="<?php foreach ($class_array as $this_class) : echo $this_class; endforeach;?>">
+    <li class="<?php foreach ($class_array as $this_class) : echo $this_class; endforeach;?>hide">
         <?php echo the_field('product_title_main'); ?>
     </li>
     <?php // 検索用製品カテゴリ,検索用業界・産業,検索用試験規格のいずれかを持つか判定 END
@@ -116,7 +116,7 @@ endforeach; ?>
 <?php // 対象の投稿が無い場合
 else :
 ?>
-    <li>記事がありません</li>
+    <li>製品がありません</li>
 <?php // if END
 endif; ?>
 </ul>
@@ -130,23 +130,20 @@ endif; ?>
 
 <script>
 (function ($) {
-    $('.chk_search').each(function () { // 初期表示：チェックボックスをオン
-        $(this).prop('checked', true);
-    })
     $('.chk_search').on('click',function () { // チェックボックスをクリック
         let arrs_type = [];
-        $('[class="chk_search"]:not(:checked)').each(function () { // チェックボックスにチェックが入っていないval（class）を配列に格納
+        $('[class="chk_search"]:checked').each(function () { // チェックボックスにチェックが入っているval（class）を配列に格納
             arrs_type.push($(this).val());
         });
-        $('.search_list li').each(function () { // class.hideを持つ要素よりclass.hideを削除
-            if ($(this).hasClass('hide')) {
-                $(this).removeClass('hide');
+        $('.search_list li').each(function () { // class.hideを持っていない要素にclass.hideを追加
+            if (!$(this).hasClass('hide')) {
+                $(this).addClass('hide');
             }
         });
-        arrs_type.forEach(function (val) { // チェックボックスにチェックが入っていないclassを持つ要素にclass.hideを付与
+        arrs_type.forEach(function (val) { // 配列に存在するclassを持っている要素よりclass.hideを削除
             $('.search_list li').each(function () {
-                if ($(this).hasClass(val) && !$(this).hasClass('hide')) {
-                    $(this).addClass('hide');
+                if ($(this).hasClass(val) && $(this).hasClass('hide')) {
+                    $(this).removeClass('hide');
                 }
             });
         });
