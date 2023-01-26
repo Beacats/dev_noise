@@ -78,8 +78,9 @@ $args = array(
     'orderby' => 'date', // 日付を基準
     'order' => 'DESC' // 降順で表示
 );
-$search_products = get_posts($args); // 投稿を取得
-if ($search_products) : foreach ($search_products as $post) : setup_postdata($post); // if START, 繰り返し START
+$search_products = new WP_Query($args); // 投稿を取得
+if($search_products->have_posts()): // if 投稿があるか START
+while($search_products->have_posts()): $search_products->the_post(); // 繰り返し START
 ?>
     <?php
     $class_array = array(); // class用の配列を定義
@@ -111,14 +112,11 @@ if ($search_products) : foreach ($search_products as $post) : setup_postdata($po
     </li>
     <?php // 検索用製品カテゴリ,検索用業界・産業,検索用試験規格のいずれかを持つか判定 END
     endif; ?>
-<?php // 繰り返し END
-endforeach; ?>
-<?php // 対象の投稿が無い場合
-else :
+<?php
+endwhile; // 繰り返し END
+endif; // if 投稿があるか END
+wp_reset_postdata();
 ?>
-    <li>製品がありません</li>
-<?php // if END
-endif; ?>
 </ul>
 </div>
 
