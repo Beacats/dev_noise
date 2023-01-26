@@ -70,7 +70,6 @@ $input_count = 1;
 <hr>
 
 <div class="result_box">
-<ul class="search_list">
 <?php
 $args = array(
     'post_status' => 'publish', // 公開記事が対象
@@ -80,6 +79,9 @@ $args = array(
 );
 $search_products = new WP_Query($args); // 投稿を取得
 if($search_products->have_posts()): // if 投稿があるか START
+?>
+<ul class="search_list">
+<?php
 while($search_products->have_posts()): $search_products->the_post(); // 繰り返し START
 ?>
     <?php
@@ -114,10 +116,12 @@ while($search_products->have_posts()): $search_products->the_post(); // 繰り�
     endif; ?>
 <?php
 endwhile; // 繰り返し END
+?>
+</ul>
+<?php
 endif; // if 投稿があるか END
 wp_reset_postdata();
 ?>
-</ul>
 </div>
 
 <style>
