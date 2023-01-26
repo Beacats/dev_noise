@@ -16,7 +16,7 @@ $input_count = 1;
         <dd>
             <?php foreach ($emc_tag_terms as $emc_tag_term) : ?>
             <div>
-                <input type="checkbox" id="check<?php echo $input_count; ?>" name="check<?php echo $input_count;?>" class="chk_search" value="<?php echo $emc_tag_term->slug; ?>">
+                <input type="checkbox" id="check<?php echo $input_count; ?>" name="check<?php echo $input_count;?>" class="chk_search" value="<?php echo $emc_tag_term->slug; ?>" checked>
                 <label for="check<?php echo $input_count; ?>"class="checkbox<?php echo $input_count; ?>"><?php echo $emc_tag_term->name; ?></label>
             </div>
             <?php $input_count++; ?>
@@ -34,7 +34,7 @@ $input_count = 1;
         <dd>
             <?php foreach ($emc_industry_terms as $emc_industry_term) : ?>
             <div>
-                <input type="checkbox" id="check<?php echo $input_count; ?>" name="check<?php echo $input_count;?>" class="chk_search" value="<?php echo $emc_industry_term->slug; ?>">
+                <input type="checkbox" id="check<?php echo $input_count; ?>" name="check<?php echo $input_count;?>" class="chk_search" value="<?php echo $emc_industry_term->slug; ?>" checked>
                 <label for="check<?php echo $input_count; ?>"class="checkbox<?php echo $input_count; ?>"><?php echo $emc_industry_term->name; ?></label>
             </div>
             <?php $input_count++; ?>
@@ -55,7 +55,7 @@ $input_count = 1;
                 if ($emc_test_standard_tag_term->parent) :
                 ?>
                 <div>
-                    <input type="checkbox" id="check<?php echo $input_count; ?>" name="check<?php echo $input_count;?>" class="chk_search" value="<?php echo $emc_test_standard_tag_term->slug; ?>">
+                    <input type="checkbox" id="check<?php echo $input_count; ?>" name="check<?php echo $input_count;?>" class="chk_search" value="<?php echo $emc_test_standard_tag_term->slug; ?>" checked>
                     <label for="check<?php echo $input_count; ?>"class="checkbox<?php echo $input_count; ?>"><?php echo $emc_test_standard_tag_term->name; ?></label>
                 </div>
                 <?php $input_count++; ?>
@@ -107,7 +107,7 @@ while($search_products->have_posts()): $search_products->the_post(); // 繰り�
     endif;
     if ($class_array) : // 検索用製品カテゴリ,検索用業界・産業,検索用試験規格のいずれかを持つか判定 START
     ?>
-    <li class="<?php foreach ($class_array as $this_class) : echo $this_class; endforeach;?>hide">
+    <li class="<?php foreach ($class_array as $this_class) : echo $this_class; endforeach;?>">
         <?php echo the_field('product_title_main'); ?>
     </li>
     <?php // 検索用製品カテゴリ,検索用業界・産業,検索用試験規格のいずれかを持つか判定 END
@@ -133,18 +133,27 @@ wp_reset_postdata();
 <script>
 (function ($) {
     $('.chk_search').on('click',function () { // チェックボックスをクリック
-        let arrs_type = [];
-        $('[class="chk_search"]:checked').each(function () { // チェックボックスにチェックが入っているval（class）を配列に格納
-            arrs_type.push($(this).val());
+        let arrs_type_remove = [];
+        let arrs_type_add = [];
+        $('[class="chk_search"]:not(:checked)').each(function () { // チェックボックスにチェックが入っていないval（class）を非表示用配列に格納
+            arrs_type_remove.push($(this).val());
         });
-        $('.search_list li').each(function () { // class.hideを持っていない要素にclass.hideを追加
-            if (!$(this).hasClass('hide')) {
-                $(this).addClass('hide');
-            }
+        $('[class="chk_search"]:checked').each(function () { // チェックボックスにチェックが入っているval（class）を表示用配列に格納
+            arrs_type_add.push($(this).val());
         });
-        arrs_type.forEach(function (val) { // 配列に存在するclassを持っている要素よりclass.hideを削除
+        $('.search_list li').each(function () { // 一旦class.hideを削除
+            $(this).removeClass('hide');
+        });
+        arrs_type_remove.forEach(function (val) { // 非表示用配列に存在するclassを持っている要素にclass.hideを追加
             $('.search_list li').each(function () {
-                if ($(this).hasClass(val) && $(this).hasClass('hide')) {
+                if ($(this).hasClass(val)) {
+                    $(this).addClass('hide');
+                }
+            });
+        });
+        arrs_type_add.forEach(function (val) { // 表示用配列に存在するclassを持っている要素からclass.hideを削除
+            $('.search_list li').each(function () {
+                if ($(this).hasClass(val)) {
                     $(this).removeClass('hide');
                 }
             });
